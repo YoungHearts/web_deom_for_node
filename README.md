@@ -1,6 +1,13 @@
+<!--
+ * @Author: yangj
+ * @Date: 2020-03-18 16:06:18
+ * @LastEditors: yangj
+ -->
 ### 简介
-一个简单的请求接口项目，是我的另一个node后端demo项目的接口demo
+一个简单的接口请求，是我的另一个node后端demo项目的接口请求demo
 ### 运行
 yarn
 
 yarn start
+### 截图
+![demo.jpg](./public/demo.png "demo.jpg")
