@@ -6,8 +6,8 @@
 ### 简介
 一个简单的接口请求，是我的另一个node后端demo项目的接口请求demo
 ### 运行
-yarn
+npm install
 
-yarn start
+npm start
 ### 截图
 ![demo.jpg](./public/demo.png "demo.jpg")
