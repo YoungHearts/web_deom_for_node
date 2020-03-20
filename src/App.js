@@ -43,7 +43,6 @@ class Index extends Component {
     let {loginParams}=this.state;
     register(loginParams).then(res => {
       console.log('add', res);
-      this.queryFun()
     })
   }
   loginFun = () => {
