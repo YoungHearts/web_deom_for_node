@@ -27,4 +27,18 @@ const del=(data)=> {
     data,
   });
 }
-export{query,add,del}
+const register=(data)=> {
+  return request({
+    url: 'user/register',
+    method: 'post',
+    data,
+  });
+}
+const login=(data)=> {
+  return request({
+    url: 'user/login',
+    method: 'post',
+    data,
+  });
+}
+export{query,add,del,register,login}

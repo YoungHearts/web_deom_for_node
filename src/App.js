@@ -5,13 +5,16 @@
  */
 import React, { Component } from 'react';
 import './App.css';
-import { query, add,del} from '../src/api/api';
+import { query, add,del,register,login} from '../src/api/api';
 class Index extends Component {
   constructor() {
     super();
     this.state = {
       list: [],
-      addSqlParams:{ name: 'yj90', url: 'http://yj90.cn', alexa: '9999999', country: 'CN' }
+      addSqlParams:{ name: 'yj90', url: 'http://yj90.cn', alexa: '9999999', country: 'CN' },
+      loginParams:{ password:'',account:'' },
+      registerParams:{ user_name: '', password:'',account:'' },
+      on_user:''//登录状态
     }
   }
   componentDidMount() {
@@ -36,14 +39,39 @@ class Index extends Component {
       this.queryFun()
     })
   }
+  registerFun = () => {
+    let {loginParams}=this.state;
+    register(loginParams).then(res => {
+      console.log('add', res);
+      this.queryFun()
+    })
+  }
+  loginFun = () => {
+    let {loginParams}=this.state;
+    login(loginParams).then(res => {
+      this.setState({on_user:res.data.user_name||''})
+    })
+  }
   handleChange=(key,e)=>{
     console.log(e.target.value);
     let {addSqlParams}=this.state;
     addSqlParams[key]=e.target.value||'';
     this.setState({addSqlParams})
   }
+  loginhandleChange=(key,e)=>{
+    console.log(e.target.value);
+    let {loginParams}=this.state;
+    loginParams[key]=e.target.value||'';
+    this.setState({loginParams})
+  }
+  registerhandleChange=(key,e)=>{
+    console.log(e.target.value);
+    let {registerParams}=this.state;
+    registerParams[key]=e.target.value||'';
+    this.setState({registerParams})
+  }
   render() {
-    let { list = [], addSqlParams} = this.state;
+    let { list = [], addSqlParams,loginParams,registerParams,on_user} = this.state;
     return (
       <div className="App">
         <div>
@@ -53,6 +81,7 @@ class Index extends Component {
             <input value={addSqlParams.alexa} onChange={this.handleChange.bind(this,'alexa')}/>
             <input value={addSqlParams.country} onChange={this.handleChange.bind(this,'country')}/>
             <button onClick={this.addFun}>add</button>
+            <button onClick={this.registerFun}>registerFun</button>
           </div>
           <table border='1' style={{borderCollapse: 'collapse'}}>
             <tbody>
@@ -76,6 +105,23 @@ class Index extends Component {
               })}
             </tbody>
           </table>
+        </div>
+        <div>
+          <p>注册</p>
+          <div style={{marginBottom:'10px'}}>
+            <input placeholder='账号' value={registerParams.account} onChange={this.registerhandleChange.bind(this,'account')}/>
+            <input placeholder='密码' value={registerParams.password} onChange={this.registerhandleChange.bind(this,'password')}/>
+            <input placeholder='用户名' value={registerParams.user_name} onChange={this.registerhandleChange.bind(this,'user_name')}/>
+            <button onClick={this.registerFun}>register</button>
+          </div>
+        </div>
+        <div>
+          <p>登录(当前账号：{on_user?on_user:'未登录'})</p>
+          <div style={{marginBottom:'10px'}}>
+            <input placeholder='账号' value={loginParams.account} onChange={this.loginhandleChange.bind(this,'account')}/>
+            <input placeholder='密码' value={loginParams.password} onChange={this.loginhandleChange.bind(this,'password')}/>
+            <button onClick={this.loginFun}>login</button>
+          </div>
         </div>
       </div>
     )
