@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import './App.css';
-import { query, add,del,register,login} from '../src/api/api';
+import { query, add,del,register,login,change_password} from '../src/api/api';
 class Index extends Component {
   constructor() {
     super();
@@ -49,6 +49,12 @@ class Index extends Component {
     let {loginParams}=this.state;
     login(loginParams).then(res => {
       this.setState({on_user:res.data.user_name||''})
+    })
+  }
+  changePassword=()=>{
+    let {loginParams}=this.state;
+    change_password(loginParams).then(res => {
+      this.setState({loginParams:{ password:'',account:'' }});
     })
   }
   handleChange=(key,e)=>{
@@ -120,6 +126,7 @@ class Index extends Component {
             <input placeholder='账号' value={loginParams.account} onChange={this.loginhandleChange.bind(this,'account')}/>
             <input placeholder='密码' value={loginParams.password} onChange={this.loginhandleChange.bind(this,'password')}/>
             <button onClick={this.loginFun}>login</button>
+            <button onClick={this.changePassword}>change password</button>
           </div>
         </div>
       </div>

@@ -27,9 +27,14 @@ request.interceptors.request.use(
 // response interceptor
 request.interceptors.response.use(
   response =>{
-    let{status,data,statusText}=response||{};
+    let{status,data={},statusText}=response||{};
     if(status===200){
-      return Promise.resolve(data);
+      if(data.code===200){
+        return Promise.resolve(data);
+      }else{
+        alert(data.msg||'server error');
+        return Promise.reject(data);
+      }
     }else{
       alert(statusText||'server error');
       return Promise.reject(data);

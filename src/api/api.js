@@ -41,4 +41,11 @@ const login=(data)=> {
     data,
   });
 }
-export{query,add,del,register,login}
+const change_password=(data)=> {
+  return request({
+    url: 'user/change_password',
+    method: 'post',
+    data,
+  });
+}
+export{query,add,del,register,login,change_password}
